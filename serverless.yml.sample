@@ -1,0 +1,142 @@
+# serverless.yml
+
+# https://docs.serverless.com
+# https://medium.com/nextfaze/binary-responses-with-serverless-framework-and-api-gateway-5fde91376b76
+# https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+
+service: "lambda-request-debugger"
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+frameworkVersion: ">=1.28.0 <2.0.0"
+
+# you can overwrite defaults here
+stage: dev
+region: us-east-1
+
+plugins:
+  - serverless-api-cloudfront
+
+custom:
+  domain: {you.example.com}
+  bucket: {you-example-com}
+  certificate: {arn for your ACM TLS certificate}
+  apiCloudFront:
+    domain: ${self:custom.domain}
+    certificate: ${self:custom.certificate}
+    logging:
+      bucket: ${self:custom.bucket}.s3.amazonaws.com
+      prefix: ${self:provider.stage}
+    cookies: none
+
+provider:
+  name: aws
+  runtime: go1.x
+  stage: ${opt:stage, 'dev'}
+  memorySize: 128
+  timeout: 10
+  # tags:
+
+package:
+ exclude:
+   - ./**
+ include:
+   - ./bin/**
+
+functions:
+  # JSON
+  get-json:
+    handler: bin/debug
+    environment:
+      JSON: true
+    events:
+      - http:
+          path: json
+          method: get
+  post-json:
+    handler: bin/debug
+    environment:
+      JSON: true
+    events:
+      - http:
+          path: json
+          method: post
+  put-json:
+    handler: bin/debug
+    environment:
+      JSON: true
+    events:
+      - http:
+          path: json
+          method: put
+  patch-json:
+    handler: bin/debug
+    environment:
+      JSON: true
+    events:
+      - http:
+          path: json
+          method: patch
+  delete-json:
+    handler: bin/debug
+    environment:
+      JSON: true
+    events:
+      - http:
+          path: json
+          method: delete
+
+  # DUMP
+  get-dump:
+    handler: bin/debug
+    environment:
+      JSON: false
+    events:
+      - http:
+          path: dump
+          method: get
+  post-dump:
+    handler: bin/debug
+    environment:
+      JSON: false
+    events:
+      - http:
+          path: dump
+          method: post
+  put-dump:
+    handler: bin/debug
+    environment:
+      JSON: false
+    events:
+      - http:
+          path: dump
+          method: put
+  patch-dump:
+    handler: bin/debug
+    environment:
+      JSON: false
+    events:
+      - http:
+          path: dump
+          method: patch
+  delete-dump:
+    handler: bin/debug
+    environment:
+      JSON: false
+    events:
+      - http:
+          path: dump
+          method: delete
+
+# you can add CloudFormation resource templates here
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucket}
+  Outputs:
+     ApiDistribution:
+       Description: "ApiDistribution"
+       Value: ApiDistribution

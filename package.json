@@ -1,0 +1,19 @@
+{
+  "name": "lambda-pagerduty-receive",
+  "version": "1.0.0",
+  "description": "A request debugger for AWS Lambda and API Gateway.",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-api-cloudfront": "^0.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyzyx/lambda-request-debug.git"
+  },
+  "author": "Ryan Parman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skyzyx/lambda-request-debug/issues"
+  },
+  "homepage": "https://github.com/skyzyx/lambda-request-debug#readme"
+}

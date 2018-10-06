@@ -1,0 +1,19 @@
+hash: de1a0eab2fd0d7f307669316cce71869cc327aa1a5c84daacd58010603f1d46a
+updated: 2018-10-05T16:03:05.11776-07:00
+imports:
+- name: github.com/aws/aws-lambda-go
+  version: 2d482ef09017ae953b1e8d5a6ddac5b696663a3c
+  subpackages:
+  - events
+  - lambda
+  - lambda/messages
+  - lambdacontext
+- name: github.com/davecgh/go-spew
+  version: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
+  subpackages:
+  - spew
+- name: github.com/djhworld/go-lambda-invoke
+  version: 82733fd6d8fa6b328e406e3187c72341268826ee
+  subpackages:
+  - golambdainvoke
+testImports: []

@@ -1,0 +1,5 @@
+.serverless/
+bin/
+node_modules/
+serverless.yml
+vendor/
